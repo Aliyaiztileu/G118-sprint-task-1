@@ -22,46 +22,56 @@
     </button>
 
     <!-- Modal -->
+    <form action="/addTask" method="post">
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Новая задача</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-
-                    <h2>New task</h2>
-                    <form action="/add-task-servlet" method="post">
-
-                    <h3>Name:</h3>
-                    <input type="text" name="name" placeholder="Task name">
-                    <h3>Description</h3>
-                        <input type="text" name="description" placeholder="Description name">
-                    <h3>Deadline date</h3>
-                    <input type="date" name="deadLineDate">
-                    </form>
+                    <h4>Наименование:</h4>
+                    <input type="text" name="name" placeholder="Наименование задачи" required>
+                    <h4>Описание:</h4>
+                        <input type="text" name="description" placeholder="Описание...">
+                    <h4>Крайний срок</h4>
+                    <input type="date" name="deadlineDate" required>
 
 
 
                 </div>
-                <form action="/add-task-servlet" method="post" class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button> </form>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
 
                 </div>
             </div>
         </div>
     </div>
+    </form>
 
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
 
-    <table>
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+    </style>
+
+    <table class="table table-primary">
         <thead>
+        <tr>
             <th>ID</th>
-            <th>Name</th>
-            <th>DeadLine date</th>
-            <th>Status</th>
-            <th>Details</th>
+            <th>Наименование</th>
+            <th>Крайний срок</th>
+            <th>Выполнено</th>
+            <th>Детали</th>
+        </tr>
         </thead>
         <tbody>
         <%
@@ -69,25 +79,32 @@
             if (tasks != null) {
                 for (Task task : tasks){
         %>
-
-
         <tr>
             <td><%=task.getId()%></td>
             <td><%=task.getName()%></td>
-            <td><%=task.getDeadLineDate()%></td>
-            <td>Status</td>
+            <td><%=task.getDeadlineDate()%></td>
+            <td>
+                <select id="choose-option" name="option">
+                <option value="option1">Да</option>
+                <option value="option2" selected>Нет</option>
+            </select>
+            </td>
             <td>
                 <form action="/details" method="get">
                     <input type="hidden" name="id" value="<%=task.getId()%>">
-                    <button>DETAILS</button>
+                    <button type="submit" class="btn btn-primary">
+                        Детали
+                    </button>
                 </form>
             </td>
         </tr>
         <%
-            }}
+                }
+            }
         %>
         </tbody>
     </table>
+
 
 
 </body>

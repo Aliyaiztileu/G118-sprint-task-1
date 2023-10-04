@@ -4,15 +4,21 @@ public class Task {
     private Long id;
     private String name;
     private String description;
-    private String deadLineDate;
+    private String deadlineDate;
 
     public Task (){}
 
-    public Task(Long id, String name, String description, String deadLineDate) {
+    public Task(Long id, String name, String description, String deadlineDate) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.deadLineDate = deadLineDate;
+        this.deadlineDate = deadlineDate;
+    }
+
+    public Task(String name, String description, String deadlineDate) {
+        this.name = name;
+        this.description = description;
+        this.deadlineDate = deadlineDate;
     }
 
     public Long getId() {
@@ -39,11 +45,11 @@ public class Task {
         this.description = description;
     }
 
-    public String getDeadLineDate() {
-        return deadLineDate;
+    public String getDeadlineDate() {
+        return deadlineDate;
     }
 
-    public void setDeadLineDate(String deadLineDate) {
-        this.deadLineDate = deadLineDate;
+    public void setDeadlineDate(String deadlineDate) {
+        this.deadlineDate = deadlineDate;
     }
 }

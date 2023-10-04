@@ -7,29 +7,24 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import models.Task;
-
 import java.io.IOException;
-
-@WebServlet(value = "/add-task-servlet")
+@WebServlet(value = "/addTask")
 public class AddTaskServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("name");
         String description = req.getParameter("description");
-        String deadLineDate = req.getParameter("deadLineDate");
+        String deadlineDate = req.getParameter("deadlineDate");
 
         Task task = new Task();
         task.setName(name);
         task.setDescription(description);
-        task.setDeadLineDate(deadLineDate);
+        task.setDeadlineDate(deadlineDate);
 
+        if (!task.getName().isEmpty() || !task.getDeadlineDate().isEmpty() || !task.getDescription().isEmpty())
         DBManager.addTask(task);
-        System.out.println("Task added successfully"); // Добавьте эту строку для отладки
-
-        req.getRequestDispatcher("home.jsp").forward(req, resp);
-
-        System.out.println("Forwarding to Home");
+        resp.sendRedirect("/home");
+        }
 
 
-    }
 }
